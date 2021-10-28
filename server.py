@@ -1,6 +1,10 @@
 from flask import Flask, jsonify, request
+from blockchain import Blockchain
 
 app = Flask(__name__)
+
+# Intancia del blockchai
+blockchain = Blockchain()
 
 
 @app.route('/hello', methods=['GET'])
