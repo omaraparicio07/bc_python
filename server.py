@@ -12,6 +12,14 @@ def greet():
     return "Hello world!!"
 
 
+@app.route('/chain', methods=['GET'])
+def full_chain():
+    response = {
+        'chain': blockchain.chain,
+        'length': len(blockchain.chain),
+    }
+    return jsonify(response)
+
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
