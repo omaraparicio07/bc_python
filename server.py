@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from blockchain import Blockchain
 
 app = Flask(__name__)
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
 # Intancia del blockchai
 blockchain = Blockchain()
