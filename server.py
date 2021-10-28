@@ -21,6 +21,13 @@ def full_chain():
     }
     return jsonify(response)
 
+@app.route('/transaction', methods=['POST'])
+def new_transaction():
+    body = request.form
+    if not (body['sender'] and body['receiver'] and body['amount']):
+        return 'Missing values', 400
+    return jsonify({"greet": "Hello world!!"}), 201
+
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
