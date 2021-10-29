@@ -26,7 +26,12 @@ def new_transaction():
     body = request.form
     if not (body['sender'] and body['receiver'] and body['amount']):
         return 'Missing values', 400
-    return jsonify({"greet": "Hello world!!"}), 201
+    
+    index = blockchain.new_transaction(
+        body['sender'], body['receiver'], body['amount'])
+    response = {'message': f'Transaccion agragda al bloque {index}'}
+    
+    return jsonify(response), 201
 
 
 if __name__ == '__main__':
