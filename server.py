@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from blockchain import Blockchain
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
@@ -36,9 +37,13 @@ def new_transaction():
 @app.route('/mine', methods=['GET'])
 def mine():
     last_block = blockchain.last_block
+    print( datetime.now())
+    proof = blockchain.proof_of_work(last_block)
+    print( datetime.now())
+    print(proof)
 
     previous_hash = blockchain.hash(last_block)
-    block = blockchain.new_block(100, previous_hash)
+    block = blockchain.new_block(proof, previous_hash)
 
     response = {
         'message': "Nuevo bloque minado",
