@@ -25,6 +25,12 @@ class Blockchain:
     def last_block(self):
         return self.chain[-1]
 
+    @staticmethod
+    def hash(block):
+        block_string = json.dumps(block, sort_keys=True).encode()
+        print ("Hash Block : " + hashlib.sha256(block_string).hexdigest())
+        return hashlib.sha256(block_string).hexdigest()
+
     def new_transaction(self, sender, recipient, amount):
         self.current_transactions.append({
             'sender': sender,
