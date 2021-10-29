@@ -20,3 +20,15 @@ class Blockchain:
         self.current_transactions = []
         self.chain.append(block)
         return block
+
+    @property
+    def last_block(self):
+        return self.chain[-1]
+
+    def new_transaction(self, sender, recipient, amount):
+        self.current_transactions.append({
+            'sender': sender,
+            'recipient': recipient,
+            'amount': amount,
+        })
+        return self.last_block['index'] + 1
