@@ -31,6 +31,12 @@ class Blockchain:
         print ("Hash Block : " + hashlib.sha256(block_string).hexdigest())
         return hashlib.sha256(block_string).hexdigest()
 
+    @staticmethod
+    def valid_proof(last_proof, proof, last_hash):
+        guess = f'{last_proof}{proof}{last_hash}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[0] == "0"
+
     def new_transaction(self, sender, recipient, amount):
         self.current_transactions.append({
             'sender': sender,
@@ -38,3 +44,13 @@ class Blockchain:
             'amount': amount,
         })
         return self.last_block['index'] + 1
+    
+    def proof_of_work(self, last_block):
+        last_proof = last_block['proof']
+        last_hash = self.hash(last_block)
+        proof = 0
+        while self.valid_proof(last_proof, proof, last_hash) is False:
+            proof += 1
+
+        return proof
+
