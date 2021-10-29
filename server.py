@@ -33,6 +33,22 @@ def new_transaction():
     
     return jsonify(response), 201
 
+@app.route('/mine', methods=['GET'])
+def mine():
+    last_block = blockchain.last_block
+
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(100, previous_hash)
+
+    response = {
+        'message': "Nuevo bloque minado",
+        'index': block['index'],
+        'transactions': block['transactions'],
+        'proof': block['proof'],
+        'previous_hash': block['previous_hash'],
+    }
+    return jsonify(response), 200
+
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
