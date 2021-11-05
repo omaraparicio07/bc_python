@@ -54,3 +54,31 @@ class Blockchain:
 
         return proof
 
+
+    def valid_chain(self):
+
+        last_block = self.chain[0]
+        current_index = 1
+
+        while current_index < len(self.chain):
+            block = self.chain[current_index]
+            print(f'{last_block}')
+            print(f'{block}')
+            print("\n-----------\n")
+            last_block_hash = self.hash(last_block)
+            if block['previous_hash'] != last_block_hash:
+                return False
+
+            if not self.valid_proof(last_block['proof'], block['proof'], last_block_hash):
+                return False
+
+            last_block = block
+            current_index += 1
+
+        return True
+
+## Registrar nodos
+## Agregar una distincion a los nodos
+## Distribuir el blockchain periodicamente
+## Resolver conflictos entre nodos
+## Crear el blockchain consensuado
